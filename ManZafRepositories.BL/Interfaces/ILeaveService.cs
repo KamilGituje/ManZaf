@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ManZafRepositories.BL.Interfaces
 {
-    public interface IWorkerService
+    public interface ILeaveService
     {
-        Task<Worker> CreateAsync(Worker worker);
-        Task<Worker> UpdateAsync(Worker worker);
+        Task<Leave> UpdateAvailableLeavesForWorker(Leave leave);
     }
 }
