@@ -21,21 +21,21 @@ namespace ManZafRepositories.BL
         }
         private readonly PubContext context;
 
-        public async Task<Leave> GetLeaveTypeAsync(int leaveId)
+        public async Task<LeaveType> GetLeaveTypeAsync(int leaveTypeId)
         {
-            return await context.Leaves.FirstOrDefaultAsync(l => l.LeaveId == leaveId);
+            return await context.LeaveTypes.FirstOrDefaultAsync(l => l.LeaveTypeId == leaveTypeId);
         }
-        public async Task<List<WorkerLeave>> GetAvailableLeavesForWorker(int workerId)
+        public async Task<List<Leave>> GetAvailableLeavesForWorker(int workerId)
         {
-            return await context.WorkerLeave.Include(wl => wl.Leave).Where(wl => wl.WorkerId == workerId).ToListAsync();
+            return await context.Leaves.Include(wl => wl.LeaveType).Where(wl => wl.WorkerId == workerId).ToListAsync();
         }
-        public async Task<WorkerLeave> GetAvailableLeaveSpecificTypeForWorkerAsync(int workerId, int leaveId)
+        public async Task<Leave> GetAvailableLeaveSpecificTypeForWorkerAsync(int workerId, int leaveTypeId)
         {
-            return await context.WorkerLeave.Include(wl => wl.Leave).FirstOrDefaultAsync(wl => wl.LeaveId == leaveId && wl.WorkerId == workerId);
+            return await context.Leaves.Include(l => l.LeaveType).FirstOrDefaultAsync(l => l.LeaveTypeId == leaveTypeId && l.WorkerId == workerId);
         }
-        public async Task<bool> AddNewNonExistingLeaveForWorkerAsync(WorkerLeave leave)
+        public async Task<bool> AddNewNonExistingLeaveForWorkerAsync(Leave leave)
         {
-            await context.WorkerLeave.AddAsync(leave);
+            await context.Leaves.AddAsync(leave);
             return true;
         }
         public async Task<bool> SaveChangesAsync()

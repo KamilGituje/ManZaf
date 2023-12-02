@@ -4,9 +4,9 @@
     {
         public WorkerLeaveProfile()
         {
-            CreateMap<Models.WorkerLeaveForUpdate, ManZafModels.BL.WorkerLeave>();
-            CreateMap<ManZafModels.BL.WorkerLeave, Models.WorkerLeaveDto>();
-            CreateMap<ManZafModels.BL.WorkerLeave, Models.WorkerLeaveWithoutWorkerDto>();
+            CreateMap<Models.LeaveForUpdate, ManZafModels.BL.Leave>();
+            CreateMap<ManZafModels.BL.Leave, Models.LeaveDto>();
+            CreateMap<ManZafModels.BL.Leave, Models.LeaveWithoutWorkerDto>();
         }
     }
 }

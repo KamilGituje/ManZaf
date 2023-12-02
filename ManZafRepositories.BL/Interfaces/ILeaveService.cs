@@ -9,6 +9,6 @@ namespace ManZafRepositories.BL.Interfaces
 {
     public interface ILeaveService
     {
-        Task<WorkerLeave> UpdateAvailableLeavesForWorker(WorkerLeave leave);
+        Task<Leave> UpdateAvailableLeavesForWorker(Leave leave);
     }
 }

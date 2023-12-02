@@ -2,10 +2,10 @@
 
 namespace ManZafAPI.Models
 {
-    public class WorkerLeaveDto
+    public class LeaveForUpdate
     {
         public int WorkerId { get; set; }
-        public int LeaveId { get; set; }
+        public int LeaveTypeId { get; set; }
         public int Quantity { get; set; }
     }
 }

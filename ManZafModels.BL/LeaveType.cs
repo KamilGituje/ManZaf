@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ManZafModels.BL
 {
-    public class Leave
+    public class LeaveType
     {
-        public int WorkerId { get; set; }
+        public LeaveType()
+        {
+
+        }
         public int LeaveTypeId { get; set; }
-        public Worker Worker { get; set; }
-        public LeaveType LeaveType { get; set; }
-        public int Quantity { get; set; }
+        public string Name { get; set; }
     }
 }

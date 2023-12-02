@@ -16,14 +16,14 @@ namespace ManZafRepositories.BL
         }
         private readonly ILeaveRepository leaveRepository;
 
-        public async Task<WorkerLeave> UpdateAvailableLeavesForWorker(WorkerLeave leave)
+        public async Task<Leave> UpdateAvailableLeavesForWorker(Leave leave)
         {
-            var leaveToUpdate = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(leave.WorkerId, leave.LeaveId);
+            var leaveToUpdate = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(leave.WorkerId, leave.LeaveTypeId);
             if(leaveToUpdate == null)
             {
-                leaveToUpdate = new WorkerLeave()
+                leaveToUpdate = new Leave()
                 {
-                    LeaveId = leave.LeaveId,
+                    LeaveTypeId = leave.LeaveTypeId,
                     WorkerId = leave.WorkerId,
                     Quantity = leave.Quantity,
                 };

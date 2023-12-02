@@ -2,9 +2,9 @@
 
 namespace ManZafAPI.Models
 {
-    public class WorkerLeaveWithoutWorkerDto
+    public class LeaveWithoutWorkerDto
     {
-        public Leave Leave { get; set; }
+        public LeaveType LeaveType { get; set; }
         public int Quantity { get; set; }
     }
 }
