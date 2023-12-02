@@ -50,7 +50,7 @@ namespace ManZafRepositories.BL
             }
             return workerToUpdate;
         }
-        public bool IsValid(Worker worker)
+        private bool IsValid(Worker worker)
         {
             if (!string.IsNullOrWhiteSpace(worker.FirstName))
             {

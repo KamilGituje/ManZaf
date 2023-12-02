@@ -22,8 +22,8 @@ namespace ManZafAPI.Controllers
         private readonly IWorkerRepository workerRepository;
         private readonly IWorkerService workerService;
 
-        [HttpGet("{workerId}", Name = "GetWorker")]
-        public async Task<ActionResult<WorkerDto>> GetWorkerAsync(int workerId)
+        [HttpGet("{workerId}/subordinates")]
+        public async Task<ActionResult<WorkerDto>> GetWorkerWithSubordinatesAsync(int workerId)
         {
             var worker = await workerRepository.GetWithSubordinatesAsync(workerId);
             if (worker != null)
@@ -32,8 +32,8 @@ namespace ManZafAPI.Controllers
             }
             return NotFound();
         }
-        [HttpGet("{workerId}/subordinates")]
-        public async Task<ActionResult<WorkerWithoutSubordinatesDto>> GetWorkerWithoutSubordinatesAsync(int workerId)
+        [HttpGet("{workerId}", Name = "GetWorker")]
+        public async Task<ActionResult<WorkerWithoutSubordinatesDto>> GetWorkerAsync(int workerId)
         {
             var worker = await workerRepository.GetAsync(workerId);
             if (worker != null)

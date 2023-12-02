@@ -10,10 +10,13 @@ namespace ManZafDatabase
 
         }
         public DbSet<Worker> Workers { get; set; }
+        public DbSet<Leave> Leaves { get; set; }
+        public DbSet<WorkerLeave> WorkerLeave { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Worker>().HasMany(w => w.Workers).WithOne().HasForeignKey(w => w.ManagerId);
+            builder.Entity<WorkerLeave>().HasKey(wl => new { wl.WorkerId, wl.LeaveId });
         }
     }
 }
