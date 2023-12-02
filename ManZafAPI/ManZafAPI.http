@@ -1,0 +1,6 @@
+@ManZafAPI_HostAddress = http://localhost:5188
+
+GET {{ManZafAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
