@@ -30,8 +30,15 @@ namespace ManZafAPI.Controllers
         public async Task<ActionResult<LeaveDto>> UpdateAvailableLeaveForWorker(LeaveForUpdate leave, int workerId)
         {
             leave.WorkerId = workerId;
-            var updatedLeave = await leaveService.UpdateAvailableLeavesForWorker(mapper.Map<Leave>(leave));
+            var updatedLeave = await leaveService.UpdateAvailableLeaveForWorker(mapper.Map<Leave>(leave));
             return Ok(mapper.Map<LeaveDto>(updatedLeave));
+        }
+        [HttpPut("{workerId}/adddays")]
+        public async Task<ActionResult<LeaveDto>> AddDaysToLeaveForWorkerAsync(LeaveForAddingDaysDto leave, int workerId)
+        {
+            leave.WorkerId = workerId;
+            var leaveDaysAdded = await leaveService.AddDaysToLeaveForWorkerAsync(mapper.Map<Leave>(leave), leave.DaysNumber);
+            return Ok(mapper.Map<LeaveDto>(leaveDaysAdded));
         }
     }
 }

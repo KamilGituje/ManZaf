@@ -22,7 +22,6 @@ namespace ManZafRepositories.BL
         {
             if (IsValid(worker))
             {
-                worker.HiringDate = DateOnly.FromDateTime(DateTime.Now);
                 await workerRepository.AddAsync(worker);
                 await workerRepository.SaveChangesAsync();
                 return worker;

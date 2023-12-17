@@ -1,12 +1,14 @@
 ﻿namespace ManZafAPI.Profiles
 {
-    public class WorkerLeaveProfile : AutoMapper.Profile
+    public class LeaveProfile : AutoMapper.Profile
     {
-        public WorkerLeaveProfile()
+        public LeaveProfile()
         {
             CreateMap<Models.LeaveForUpdate, ManZafModels.BL.Leave>();
             CreateMap<ManZafModels.BL.Leave, Models.LeaveDto>();
             CreateMap<ManZafModels.BL.Leave, Models.LeaveWithoutWorkerDto>();
+            CreateMap<Models.LeaveForAddingDaysDto, ManZafModels.BL.Leave>();
+            CreateMap<ManZafModels.BL.Leave, Models.LeaveDto>();
         }
     }
 }

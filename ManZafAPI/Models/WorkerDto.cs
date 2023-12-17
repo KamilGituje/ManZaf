@@ -11,6 +11,6 @@ namespace ManZafAPI.Models
         public DateOnly BirthDate { get; set; }
         public DateOnly HiringDate { get; set; }
         public int? ManagerId { get; set; }
-        public List<Worker>? Workers { get; set; }
+        public List<Worker> Workers { get; set; }
     }
 }

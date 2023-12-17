@@ -12,6 +12,7 @@ namespace ManZafDatabase
         public DbSet<Worker> Workers { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<Leave> Leaves { get; set; }
+        public DbSet<SingleLeave> SingleLeaves { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
