@@ -21,10 +21,6 @@ namespace ManZafRepositories.BL
         }
         private readonly PubContext context;
 
-        public async Task<LeaveType> GetLeaveTypeAsync(int leaveTypeId)
-        {
-            return await context.LeaveTypes.FirstOrDefaultAsync(l => l.LeaveTypeId == leaveTypeId);
-        }
         public async Task<List<Leave>> GetAvailableLeavesForWorker(int workerId)
         {
             return await context.Leaves.Include(wl => wl.LeaveType).Where(wl => wl.WorkerId == workerId).ToListAsync();

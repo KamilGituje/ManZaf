@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ManZafRepositories.BL.Interfaces
 {
-    public interface ILeaveService
+    public interface ILeaveTypeRepository
     {
-        Task<Leave> UpdateAvailableLeaveForWorker(Leave leave);
-        Task<Leave> AddDaysToLeaveForWorkerAsync(Leave leave, int daysNumber);
+        Task<LeaveType> GetLeaveTypeAsync(int leaveId);
     }
 }

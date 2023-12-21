@@ -16,22 +16,39 @@ namespace ManZafRepositories.BL
         }
         private readonly ILeaveRepository leaveRepository;
 
-        public async Task<Leave> UpdateAvailableLeavesForWorker(Leave leave)
+        public async Task<Leave> UpdateAvailableLeaveForWorker(Leave leave)
         {
             var leaveToUpdate = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(leave.WorkerId, leave.LeaveTypeId);
             if(leaveToUpdate == null)
             {
-                leaveToUpdate = new Leave()
-                {
-                    LeaveTypeId = leave.LeaveTypeId,
-                    WorkerId = leave.WorkerId,
-                    Quantity = leave.Quantity,
-                };
+                leaveToUpdate = CreateNewNonExistingLeaveForWorker(leave.WorkerId, leave.LeaveTypeId);
+                leaveToUpdate.Quantity = leave.Quantity;
                 await leaveRepository.AddNewNonExistingLeaveForWorkerAsync(leaveToUpdate);
             }
             leaveToUpdate.Quantity = leave.Quantity;
             await leaveRepository.SaveChangesAsync();
             return leaveToUpdate;
+        }
+        public async Task<Leave> AddDaysToLeaveForWorkerAsync(Leave leave, int daysNumber)
+        {
+            var leaveToAddDaysTo = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(leave.WorkerId, leave.LeaveTypeId);
+            if (leaveToAddDaysTo == null)
+            {
+                leaveToAddDaysTo = CreateNewNonExistingLeaveForWorker(leave.WorkerId, leave.LeaveTypeId);
+                await leaveRepository.AddNewNonExistingLeaveForWorkerAsync(leaveToAddDaysTo);
+            }
+            leaveToAddDaysTo.Quantity += daysNumber;
+            await leaveRepository.SaveChangesAsync();
+            return leaveToAddDaysTo;
+        }
+        private Leave CreateNewNonExistingLeaveForWorker(int workerId, int leaveTypeId)
+        {
+            return new Leave()
+            {
+                WorkerId = workerId,
+                LeaveTypeId = leaveTypeId,
+                Quantity = 0
+            };
         }
     }
 }

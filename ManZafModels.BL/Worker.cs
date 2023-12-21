@@ -10,10 +10,6 @@ namespace ManZafModels.BL
 {
     public class Worker
     {
-        public Worker()
-        { 
-            Workers = new List<Worker>();
-        }
         public int WorkerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -21,6 +17,6 @@ namespace ManZafModels.BL
         public DateOnly BirthDate { get; set; }
         public DateOnly HiringDate { get; set; }
         public int? ManagerId { get; set; }
-        public List<Worker>? Workers { get; set; }
+        public List<Worker> Workers { get; set; }
     }
 }
