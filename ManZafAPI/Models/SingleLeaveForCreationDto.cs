@@ -1,4 +1,6 @@
-﻿namespace ManZafAPI.Models
+﻿using ManZafModels.BL;
+
+namespace ManZafAPI.Models
 {
     public class SingleLeaveForCreationDto
     {

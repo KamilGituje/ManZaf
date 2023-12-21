@@ -9,5 +9,6 @@ namespace ManZafAPI.Models
         public DateOnly EndDate { get; set; }
         public Worker Worker { get; set; }
         public LeaveType LeaveType { get; set; }
+        public SingleLeaveStatus Status { get; set; }
     }
 }

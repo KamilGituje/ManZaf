@@ -23,13 +23,17 @@ namespace ManZafRepositories.BL
         {
             return await context.SingleLeaves.Include(sl => sl.Worker).Include(sl => sl.LeaveType).FirstOrDefaultAsync(sl => sl.SingleLeaveId == singleLeaveId);
         }
-        public async Task<List<SingleLeave>> GetSingleLeavesForWorkerAsync(int workerId)
+        public async Task<List<SingleLeave>> GetSingleLeavesAsync(int workerId)
         {
-            return await context.SingleLeaves.Where(sl => sl.WorkerId == workerId).ToListAsync();
+            return await context.SingleLeaves.Include(sl => sl.LeaveType).Where(sl => sl.WorkerId == workerId).ToListAsync();
         }
-        public async Task<List<SingleLeave>> GetSingleLeavesForWorkersByManagerIdAsync(int managerId)
+        public async Task<List<SingleLeave>> GetSingleLeavesByManagerIdAsync(int managerId)
         {
             return await context.SingleLeaves.Include(sl => sl.LeaveType).Where(sl => sl.Worker.ManagerId == managerId).ToListAsync();
+        }
+        public async Task<List<SingleLeave>> GetSingleLeavesUnmanagedByManagerIdAsync(int managerId)
+        {
+            return await context.SingleLeaves.Include(sl => sl.LeaveType).Include(sl => sl.Worker).Where(sl => sl.Worker.ManagerId == managerId && sl.Status == 0).ToListAsync();
         }
         public async Task<SingleLeave> AddSingleLeaveAsync(SingleLeave singleLeave)
         {

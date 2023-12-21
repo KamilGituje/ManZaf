@@ -20,20 +20,21 @@ namespace ManZafRepositories.BL
 
         public async Task<SingleLeave> AddSingleLeaveAsync(SingleLeave singleLeave)
         {
-            if (singleLeave.StartDate <= singleLeave.EndDate)
+            if (IsValid(singleLeave))
             {
-                var availableLeave = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(singleLeave.WorkerId, singleLeave.LeaveTypeId);
-                if (availableLeave != null)
-                {
-                    var requestedDays = RemoveWeekends(singleLeave.StartDate, singleLeave.EndDate);
-                    if (availableLeave.Quantity > requestedDays)
+                    var availableLeave = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(singleLeave.WorkerId, singleLeave.LeaveTypeId);
+                    if (availableLeave != null)
                     {
-                        await singleLeaveRepository.AddSingleLeaveAsync(singleLeave);
-                        availableLeave.Quantity -= requestedDays;
-                        await singleLeaveRepository.SaveChangesAsync();
-                        return singleLeave;
+                        var requestedDays = RemoveWeekends(singleLeave.StartDate, singleLeave.EndDate);
+                        if (availableLeave.Quantity >= requestedDays)
+                        {
+                            singleLeave.Status = 0;
+                            await singleLeaveRepository.AddSingleLeaveAsync(singleLeave);
+                            availableLeave.Quantity -= requestedDays;
+                            await singleLeaveRepository.SaveChangesAsync();
+                            return singleLeave;
+                        }
                     }
-                }
             }
             return null;
         }
@@ -44,6 +45,21 @@ namespace ManZafRepositories.BL
             var daysAfterLastWeekend = (int)endDate.DayOfWeek % 7;
             var weekendDays = (((allDays - daysBeforeFirstWeekend - daysAfterLastWeekend - 2) / 7) * 2) + 2;
             return allDays - weekendDays;
+        }
+        private bool IsValid(SingleLeave singleLeave)
+        {
+            if(singleLeave.StartDate > DateOnly.FromDateTime(DateTime.Now))
+            {
+                if (singleLeave.EndDate >= singleLeave.StartDate)
+                {
+                    if (singleLeave.LeaveTypeId != null)
+                    {
+                            return true;
+                        
+                    }
+                }
+            }
+            return false;
         }
     }
 }

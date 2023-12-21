@@ -27,16 +27,20 @@ namespace ManZafAPI.Controllers
             return mapper.Map<SingleLeaveDto>(await singleLeaveRepository.GetAsync(singleLeaveId));
         }
         [HttpGet("workers/{workerId}")]
-        public async Task<ActionResult<List<SingleLeaveDto>>> GetSingleLeavesForWorkerAsync(int workerId)
+        public async Task<ActionResult<List<SingleLeaveDto>>> GetSingleLeavesAsync(int workerId)
         {
-            return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesForWorkerAsync(workerId)));
+            return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesAsync(workerId)));
         }
         [HttpGet("managers/{managerId}")]
-        public async Task<ActionResult<List<SingleLeaveDto>>> GetSingleLeavesForWorkersByManagerId(int managerId)
+        public async Task<ActionResult<List<SingleLeaveDto>>> GetSingleLeavesByManagerId(int managerId, bool unmanaged = false)
         {
-            return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesForWorkersByManagerIdAsync(managerId)));
+            if (unmanaged)
+            {
+                return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesUnmanagedByManagerIdAsync(managerId)));
+            }
+            return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesByManagerIdAsync(managerId)));
         }
-        [HttpPost("{workerId}/create")]
+        [HttpPost("workers/{workerId}/create")]
         public async Task<ActionResult<SingleLeaveWithIdsDto>> AddSingleLeaveAsync(SingleLeaveForCreationDto singleLeave, int workerId)
         {
             singleLeave.WorkerId = workerId;
