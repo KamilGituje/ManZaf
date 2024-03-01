@@ -22,7 +22,7 @@ namespace ManZafRepositories.BL
         {
             if (IsValid(singleLeave))
             {
-                    var availableLeave = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(singleLeave.WorkerId, singleLeave.LeaveTypeId);
+                    var availableLeave = await leaveRepository.GetAvailableLeaveSpecificTypeAsync(singleLeave.WorkerId, singleLeave.LeaveTypeId);
                     if (availableLeave != null)
                     {
                         var requestedDays = RemoveWeekends(singleLeave.StartDate, singleLeave.EndDate);
@@ -60,6 +60,13 @@ namespace ManZafRepositories.BL
                 }
             }
             return false;
+        }
+        public async Task<SingleLeave> UpdateSingleLeaveStatus(SingleLeave singleLeave)
+        {
+            var singleLeaveToUpdate = await singleLeaveRepository.GetAsync(singleLeave.SingleLeaveId);
+            singleLeaveToUpdate.Status = singleLeave.Status;
+            await singleLeaveRepository.SaveChangesAsync();
+            return singleLeaveToUpdate;
         }
     }
 }

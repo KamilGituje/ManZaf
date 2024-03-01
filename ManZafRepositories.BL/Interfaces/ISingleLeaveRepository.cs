@@ -13,6 +13,7 @@ namespace ManZafRepositories.BL.Interfaces
         Task<List<SingleLeave>> GetSingleLeavesAsync(int workerId);
         Task<List<SingleLeave>> GetSingleLeavesByManagerIdAsync(int managerId);
         Task<List<SingleLeave>> GetSingleLeavesUnmanagedByManagerIdAsync(int managerId);
+        Task<List<SingleLeave>> GetSingleLeavesManagedOnlyByManagerIdAsync(int managerId);
         Task<SingleLeave> AddSingleLeaveAsync(SingleLeave singleLeave);
         Task<bool> SaveChangesAsync();
     }

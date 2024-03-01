@@ -35,6 +35,10 @@ namespace ManZafRepositories.BL
         {
             return await context.SingleLeaves.Include(sl => sl.LeaveType).Include(sl => sl.Worker).Where(sl => sl.Worker.ManagerId == managerId && sl.Status == 0).ToListAsync();
         }
+        public async Task<List<SingleLeave>> GetSingleLeavesManagedOnlyByManagerIdAsync(int managerId)
+        {
+            return await context.SingleLeaves.Include(sl => sl.LeaveType).Include(sl => sl.Worker).Where(sl => sl.Worker.ManagerId == managerId && sl.Status != 0).ToListAsync();
+        }
         public async Task<SingleLeave> AddSingleLeaveAsync(SingleLeave singleLeave)
         {
             await context.SingleLeaves.AddAsync(singleLeave);

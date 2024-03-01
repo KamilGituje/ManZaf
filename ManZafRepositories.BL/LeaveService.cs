@@ -18,12 +18,12 @@ namespace ManZafRepositories.BL
 
         public async Task<Leave> UpdateAvailableLeaveForWorker(Leave leave)
         {
-            var leaveToUpdate = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(leave.WorkerId, leave.LeaveTypeId);
+            var leaveToUpdate = await leaveRepository.GetAvailableLeaveSpecificTypeAsync(leave.WorkerId, leave.LeaveTypeId);
             if(leaveToUpdate == null)
             {
                 leaveToUpdate = CreateNewNonExistingLeaveForWorker(leave.WorkerId, leave.LeaveTypeId);
                 leaveToUpdate.Quantity = leave.Quantity;
-                await leaveRepository.AddNewNonExistingLeaveForWorkerAsync(leaveToUpdate);
+                await leaveRepository.AddNewNonExistingLeaveAsync(leaveToUpdate);
             }
             leaveToUpdate.Quantity = leave.Quantity;
             await leaveRepository.SaveChangesAsync();
@@ -31,11 +31,11 @@ namespace ManZafRepositories.BL
         }
         public async Task<Leave> AddDaysToLeaveForWorkerAsync(Leave leave, int daysNumber)
         {
-            var leaveToAddDaysTo = await leaveRepository.GetAvailableLeaveSpecificTypeForWorkerAsync(leave.WorkerId, leave.LeaveTypeId);
+            var leaveToAddDaysTo = await leaveRepository.GetAvailableLeaveSpecificTypeAsync(leave.WorkerId, leave.LeaveTypeId);
             if (leaveToAddDaysTo == null)
             {
                 leaveToAddDaysTo = CreateNewNonExistingLeaveForWorker(leave.WorkerId, leave.LeaveTypeId);
-                await leaveRepository.AddNewNonExistingLeaveForWorkerAsync(leaveToAddDaysTo);
+                await leaveRepository.AddNewNonExistingLeaveAsync(leaveToAddDaysTo);
             }
             leaveToAddDaysTo.Quantity += daysNumber;
             await leaveRepository.SaveChangesAsync();

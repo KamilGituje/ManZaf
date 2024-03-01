@@ -10,5 +10,6 @@ namespace ManZafRepositories.BL.Interfaces
     public interface ISingleLeaveService
     {
         Task<SingleLeave> AddSingleLeaveAsync(SingleLeave singleLeave);
+        Task<SingleLeave> UpdateSingleLeaveStatus(SingleLeave singleLeave);
     }
 }

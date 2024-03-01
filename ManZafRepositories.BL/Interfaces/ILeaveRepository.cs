@@ -9,9 +9,9 @@ namespace ManZafRepositories.BL.Interfaces
 {
     public interface ILeaveRepository
     {
-        Task<List<Leave>> GetAvailableLeavesForWorker(int workerId);
-        Task<Leave> GetAvailableLeaveSpecificTypeForWorkerAsync(int workerId, int leaveTypeId);
-        Task<bool> AddNewNonExistingLeaveForWorkerAsync(Leave leave);
+        Task<List<Leave>> GetAvailableLeaves(int workerId);
+        Task<Leave> GetAvailableLeaveSpecificTypeAsync(int workerId, int leaveTypeId);
+        Task<bool> AddNewNonExistingLeaveAsync(Leave leave);
         Task<bool> SaveChangesAsync();
     }
 }

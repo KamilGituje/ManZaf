@@ -24,7 +24,7 @@ namespace ManZafAPI.Controllers
         [HttpGet("{workerId}")]
         public async Task<ActionResult<List<LeaveWithoutWorkerDto>>> GetAvailableLeavesForWorker(int workerId)
         {
-            return Ok(mapper.Map<List<LeaveWithoutWorkerDto>>(await leaveRepository.GetAvailableLeavesForWorker(workerId)));
+            return Ok(mapper.Map<List<LeaveWithoutWorkerDto>>(await leaveRepository.GetAvailableLeaves(workerId)));
         }
         [HttpPut("{workerId}/update")]
         public async Task<ActionResult<LeaveDto>> UpdateAvailableLeaveForWorker(LeaveForUpdate leave, int workerId)

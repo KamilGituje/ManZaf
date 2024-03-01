@@ -38,7 +38,7 @@ namespace ManZafAPI.Controllers
             {
                 return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesUnmanagedByManagerIdAsync(managerId)));
             }
-            return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesByManagerIdAsync(managerId)));
+            return Ok(mapper.Map<List<SingleLeaveDto>>(await singleLeaveRepository.GetSingleLeavesManagedOnlyByManagerIdAsync(managerId)));
         }
         [HttpPost("workers/{workerId}/create")]
         public async Task<ActionResult<SingleLeaveWithIdsDto>> AddSingleLeaveAsync(SingleLeaveForCreationDto singleLeave, int workerId)
@@ -55,6 +55,17 @@ namespace ManZafAPI.Controllers
                     mapper.Map<SingleLeaveWithIdsDto>(singleLeaveAdded));
             }
             return BadRequest();
+        }
+        [HttpPut("{singleLeaveId}/update")]
+        public async Task<ActionResult<SingleLeaveWithIdsDto>> UpdateSingleLeaveStatus([FromBody]SingleLeaveStatus status, int singleLeaveId)
+        {
+            var singleLeave = new SingleLeaveForStatusUpdateDto()
+            {
+                SingleLeaveId = singleLeaveId,
+                Status = status
+            };
+            var updatedSingleLeave = await singleLeaveService.UpdateSingleLeaveStatus(mapper.Map<SingleLeave>(singleLeave));
+            return Ok(mapper.Map<SingleLeaveWithIdsDto>(updatedSingleLeave));
         }
     }
 }

@@ -21,15 +21,15 @@ namespace ManZafRepositories.BL
         }
         private readonly PubContext context;
 
-        public async Task<List<Leave>> GetAvailableLeavesForWorker(int workerId)
+        public async Task<List<Leave>> GetAvailableLeaves(int workerId)
         {
             return await context.Leaves.Include(wl => wl.LeaveType).Where(wl => wl.WorkerId == workerId).ToListAsync();
         }
-        public async Task<Leave> GetAvailableLeaveSpecificTypeForWorkerAsync(int workerId, int leaveTypeId)
+        public async Task<Leave> GetAvailableLeaveSpecificTypeAsync(int workerId, int leaveTypeId)
         {
             return await context.Leaves.Include(l => l.LeaveType).FirstOrDefaultAsync(l => l.LeaveTypeId == leaveTypeId && l.WorkerId == workerId);
         }
-        public async Task<bool> AddNewNonExistingLeaveForWorkerAsync(Leave leave)
+        public async Task<bool> AddNewNonExistingLeaveAsync(Leave leave)
         {
             await context.Leaves.AddAsync(leave);
             return true;
